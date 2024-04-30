@@ -1,7 +1,8 @@
 # GCS-T1-2024-1
 Trabalho 1 para disciplina de GCS.
 
-Detalhamento
+Detalhamento:
+
 O parque de diversões precisa armazenar dados de suas atrações e de seus visitantes. As atrações incluem,
 por exemplo, montanha-russa, roda-gigante, barco viking, carro-choque, trem-fantasma etc. Sobre os
 visitantes adultos deseja-se armazenar nome, ano de nascimento e telefone. Para crianças com menos de 12
