@@ -34,5 +34,3 @@ public class Visitante {
     public int getIngresso() {
         return ingresso;
     }
-    
-}
