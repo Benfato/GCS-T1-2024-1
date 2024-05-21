@@ -1,0 +1,3 @@
+- Um visitante deve ser registrado com nome e sobrenome.
+   - .github/workflows/visitantes-cadastrados.yaml
+- 
