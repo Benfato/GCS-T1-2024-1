@@ -1,0 +1,32 @@
+name: Visitantes Cadastrados
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+                uses: actions/checkout@v4
+
+            - name: Set up JDK
+                uses: actions/setup-java@v4
+                with:
+                    java-version: latest
+
+            - name: Build with Gradle
+                run: ./gradlew build
+
+            - name: Verifica Visitante.java
+                run: |
+                    # Verifica se todo visitante tem um registro válido com nome e sobrenome
+                    if grep -q -r -E 'Visitante.*nome\s*=\s*"[^"]* [^"]*"' ./src/main/java/registraVisitantes.java; then
+                        echo "Todos os Visitantes tem um nome válido."
+                    else
+                        echo "Erro: Algum visitante não possui um nome válido. \nVisitantes devem ter Nome e no mínimo um Sobrenome."
+                        exit 1
+                    fi
