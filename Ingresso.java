@@ -1,55 +1,80 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Random;
+import java.util.ArrayList;
 
     /* Cada ingresso tem um número identificador sequencial daquele dia (ex. “03/04/2024 seq 001”, “03/04/2024 seq 002” etc)
-     * e deve estar associado ao registro de um visitante (seja adulto ou criança).
-     */
+    * e deve estar associado ao registro de um visitante (seja adulto ou criança).
+    */
 
 public class Ingresso {
-    private int sequencial = primeiroIngressoDia();
-    private int controleIng = sequencial - 1;
-    private String identificador;
+    private static int controleIngresso = 0;
+    private int ingresso;
     private herancaVisitante visitante;
+    private final String identificador;
     private String dataStart = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
-    private String dataControle = dataStart;
+    private String dataAtual = dataStart;
     
 
-    public Ingresso(String data, herancaVisitante visitante) {
-        // Incrementa o sequencial. Ingresso com formato de 3 dígitos [Limite 500].
-        this.identificador = getData() + "- Ingresso: " + String.format("%03d", controleIngresso()); 
+    public Ingresso(herancaVisitante visitante, String data) {
         this.visitante = visitante;
+        this.ingresso = incrementaIngresso(); // Usa a funcao incrementaIngresso(), atribuind valor a ingresso
+        this.identificador = getData() + "- Ingresso: " + String.format("%03d", ingresso);
     }
 
-    private String getData() { // Incrementa a data.
-        // Converte "dataControle" de uma "String" para um objeto "LocalDateTime" antes de usar o método "plusDays()".
-        LocalDateTime incrementaData = LocalDateTime.parse(dataControle, DateTimeFormatter.ofPattern("dd/MM/yyyy")).plusDays(1);
-        String dataControle = incrementaData.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        return dataControle;
-    }
 
-    private void controleIngresso() { // Incrementa o controle de ingresso.
-        try {
-            if (controleIng == 500) {
-                return;
-                
-            } else {incrementaIngresso();}
+    // Verificar a adição de ingressos na lista.
+
+    private static ArrayList<Ingresso> ingressos = new ArrayList<>();
+    public static ArrayList<Ingresso> getAllIngressos() {
+        ArrayList<Ingresso> allIngressos = new ArrayList<>();
+        for (Ingresso ingresso : ingressos) {
+            allIngressos.add(ingresso);
         }
-        catch (Exception e) {
-            System.out.println("Limite de ingressos atingido para o dia " + dataControle);
+        return allIngressos;
+    }
+
+    public static void addIngresso(Ingresso ingresso) {
+        ingressos.add(ingresso);
+    }
+
+    public static ArrayList<Ingresso> getIngressos() {
+        return ingressos;
+    }
+
+    //
+
+
+    private int incrementaIngresso() {
+        if (controleIngresso == 500) {
+            System.out.println("Limite de Ingressos diários atingido.");
+        } else {
+            ingresso = controleIngresso;
+            controleIngresso++;
         }
+        return ingresso; // Retorna o valor atualizado de ingresso
+    }
+    
+    public int getIngresso() {
+        return ingresso;
     }
 
-    private int incrementaIngresso() { // Incrementa o ingresso.
-        return controleIng++;
-    }
-
-    public static int primeiroIngressoDia() {  // Gera o primeiro ingresso do dia
-        int sequencial = new Random().nextInt(500);
-        return sequencial;
+    public void getNextIngresso() {
+        incrementaIngresso();
     }
 
     public String getVisitante() {
-        return this.visitante.getNome();
+        return visitante.getNome();
     }
+
+    public String getData() {
+        return dataAtual;
+    }
+
+    public void incrementaData() {
+        LocalDateTime incrementaData = LocalDateTime.parse(dataAtual, DateTimeFormatter.ofPattern("dd/MM/yyyy")).plusDays(1);
+        dataAtual = incrementaData.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        controleIngresso = 0; // Reseta controleIngresso ao finalizar o dia
+    }
+    
+    
 }
