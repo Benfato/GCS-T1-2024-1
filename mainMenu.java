@@ -10,7 +10,8 @@ public class mainMenu {
         System.out.println("3 - Localizar visitante");
         System.out.println("4 - Consultar faturamento");
         System.out.println("5 - Consultar atrações");
-        System.out.println("6 - Encerrar sistema");
+        System.out.println("6 - Encerrar dia");
+        System.out.println("7 - Encerrar sistema");
 
         int selecao = sc.nextInt();
         switch (selecao){
@@ -25,6 +26,8 @@ public class mainMenu {
             case 5:
                 //todo método consultar atrações
             case 6:
+                //todo método encerrar dia
+            case 7:
                 sc.close();
                 System.exit(0);
         }
