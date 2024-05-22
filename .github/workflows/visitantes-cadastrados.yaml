@@ -17,6 +17,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
+          distribution: latest
           java-version: latest
           
       - name: Build with Gradle
