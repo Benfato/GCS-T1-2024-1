@@ -22,8 +22,7 @@
 4) O sistema deverá permitir ao operador registrar que um visitante foi em qual atração. Um visitante poderá ir em qualquer atração no dia do ingresso, inclusive poderá ir na mesma atração mais de uma vez.
 5) O sistema deverá permitir que o operador localize um visitante por parte de seu nome ou pela identificação do ingresso. Ao localizar o visitante, o sistema deverá listar todas as atrações em que o visitante foi.
 6) O sistema deverá permitir ao operador consultar o faturamento de um determinado mês/ano, somando os valores dos ingressos dos respectivos dias.
-7) O sistema deverá permitir ao operador consultar, para uma determinada data, todas as atrações do parque e a quantidade de visitantes que utilizou cada uma delas, ordenadas da mais visitada à 
-menos visitada.
+7) O sistema deverá permitir ao operador consultar, para uma determinada data, todas as atrações do parque e a quantidade de visitantes que utilizou cada uma delas, ordenadas da mais visitada à menos visitada.
 8) Duas funcionalidades a mais, à escolha do grupo.
 
 ### Regras
