@@ -1,48 +1,52 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+public class Ingresso {
 
     /* Cada ingresso tem um número identificador sequencial daquele dia (ex. “03/04/2024 seq 001”, “03/04/2024 seq 002” etc)
     * e deve estar associado ao registro de um visitante (seja adulto ou criança).
     */
 
-public class Ingresso {
-    private static int controleIngresso = 0;
+    private static int controleIngresso = 1;
     private int ingresso;
     private herancaVisitante visitante;
     private final String identificador;
-    private String dataStart = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
-    private String dataAtual = dataStart;
-    
 
     public Ingresso(herancaVisitante visitante, String data) {
         this.visitante = visitante;
         this.ingresso = incrementaIngresso(); // Usa a funcao incrementaIngresso(), atribuind valor a ingresso
-        this.identificador = getData() + "- Ingresso: " + String.format("%03d", ingresso);
+        this.identificador = subMenu.getData() + "- Ingresso: " + String.format("%03d", ingresso);
     }
 
-
     // Verificar a adição de ingressos na lista.
+    public static boolean isIngressoValido(int ingresso) {
+        for (Ingresso i : ingressosDoDia) {
+            if (i.getIngresso() == ingresso && i.getIngressoData().equals(subMenu.getData())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    private static ArrayList<Ingresso> ingressos = new ArrayList<>();
+    public String getIngressoData() {
+        return identificador.split("-")[0].trim();
+    }
+
+    public static ArrayList<Ingresso> ingressosDoDia = new ArrayList<>();
     public static ArrayList<Ingresso> getAllIngressos() {
         ArrayList<Ingresso> allIngressos = new ArrayList<>();
-        for (Ingresso ingresso : ingressos) {
+        for (Ingresso ingresso : ingressosDoDia) {
             allIngressos.add(ingresso);
         }
         return allIngressos;
     }
 
     public static void addIngresso(Ingresso ingresso) {
-        ingressos.add(ingresso);
+        ingressosDoDia.add(ingresso);
     }
 
     public static ArrayList<Ingresso> getIngressos() {
-        return ingressos;
+        return ingressosDoDia;
     }
-
-    //
-
 
     private int incrementaIngresso() {
         if (controleIngresso == 500) {
@@ -66,15 +70,8 @@ public class Ingresso {
         return visitante.getNome();
     }
 
-    public String getData() {
-        return dataAtual;
+    public static int encerraDia(int controleIngresso) {
+        return controleIngresso;
     }
 
-    public void incrementaData() {
-        LocalDateTime incrementaData = LocalDateTime.parse(dataAtual, DateTimeFormatter.ofPattern("dd/MM/yyyy")).plusDays(1);
-        dataAtual = incrementaData.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        controleIngresso = 0; // Reseta controleIngresso ao finalizar o dia
-    }
-    
-    
 }
