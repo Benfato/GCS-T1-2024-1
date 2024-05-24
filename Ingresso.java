@@ -8,6 +8,7 @@ public class Ingresso {
 
     private static int controleIngresso = 1;
     private int ingresso;
+    private int valor;
     private herancaVisitante visitante;
     private final String identificador;
 
@@ -15,6 +16,7 @@ public class Ingresso {
         this.visitante = visitante;
         this.ingresso = incrementaIngresso(); // Usa a funcao incrementaIngresso(), atribuind valor a ingresso
         this.identificador = subMenu.getData() + "- Ingresso: " + String.format("%03d", ingresso);
+        this.valor = valor;
     }
 
     // Verificar a adição de ingressos na lista.
@@ -52,18 +54,50 @@ public class Ingresso {
         if (controleIngresso == 500) {
             System.out.println("Limite de Ingressos diários atingido.");
         } else {
-            ingresso = controleIngresso;
-            controleIngresso++;
+            if (visitante.tipo == "Adulto") {
+                ingresso = controleIngresso;
+                controleIngresso++;
+                vendasIngressoDia+= 100;
+            } else if (visitante.tipo == "Crianca") {
+                ingresso = controleIngresso;
+                controleIngresso++;
+                vendasIngressoDia+= 80;
+            } else {
+                System.out.println("Erro: Tipo de visitante não reconhecido.");
+            }
         }
         return ingresso; // Retorna o valor atualizado de ingresso
     }
-    
+
+    private int getValorIngresso(String tipo) {
+        try {
+            if (tipo == "Adulto") {
+                return 100;
+            } else if (tipo == "Crianca") {
+                return 80;
+            }
+        } catch (Exception e) {
+            System.out.println("Erro: " + e);
+        }
+    };
+
+    private static ArrayList<vendasIngressoDia> vendasIngressoDia = new ArrayList<>();
+    public static ArrayList<vendasIngressoDia> getVendasIngressoDia() {
+        return vendasIngressoDia;
+    }
+
     public int getIngresso() {
         return ingresso;
     }
 
-    public void getNextIngresso() {
-        incrementaIngresso();
+    public Integer getNextIngresso() {
+        try {
+            incrementaIngresso();
+        } catch (Exception e) {
+            System.out.println("Erro: " + e);
+        }
+
+        return ingresso;
     }
 
     public String getVisitante() {

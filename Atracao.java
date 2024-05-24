@@ -1,10 +1,21 @@
 import java.util.ArrayList;
+
 public class Atracao {
     String nome;
     
-    private ArrayList<Visitante> visitante;
+    private ArrayList<herancaAtracao> atracoes;
+    private ArrayList<Visitante> visitantes;
 
-    public void adicionarVisitante(Visitante visitante){
-        this.visitante.add(visitante);
+    public Atracao() {
+        atracoes = new ArrayList<>();
+        visitantes = new ArrayList<>();
+    }
+
+    public void adicionarAtracao(herancaAtracao atracao) {
+        atracoes.add(atracao);
+    }
+
+    public void adicionarVisitante(Visitante visitante) {
+        visitantes.add(visitante);
     }
 }

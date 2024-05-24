@@ -1,17 +1,18 @@
 import java.util.ArrayList;
 
-public class Visitante {
-    private String nome;
-    private int ingresso;
-    public ArrayList<Visitante> visitantes = new ArrayList<Visitante>();
+public abstract class Visitante {
+    protected String nome;
+    protected String telefone;
+    protected int ingresso;
+    protected static ArrayList<Visitante> visitantes = new ArrayList<>();
 
-    public Visitante(String nome, int ingresso) {
+    public Visitante(String nome, String telefone, int ingresso) {
         this.nome = nome;
+        this.telefone = telefone;
         this.ingresso = ingresso;
         
-        try { // Verifica se o visitante já foi adicionado
-            this.adicionaVisitante();
-            if (adicionaVisitante() == true) {
+        try { // Adiciona o visitante
+            if (adicionaVisitante()) {
                 visitantes.add(this);
             }
         } catch (Exception error) {
@@ -20,6 +21,7 @@ public class Visitante {
     }
 
     public boolean adicionaVisitante() {
+        // Verifica se contém o visitante ("this") antes de adicionar
         if (visitantes.contains(this)) {
             return false;
         } else {
@@ -30,7 +32,4 @@ public class Visitante {
     public String getNome() {
         return nome;
     }
-
-    public int getIngresso() {
-        return ingresso;
-    }
+}
