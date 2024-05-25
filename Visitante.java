@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Visitante {
+public class Visitante {
     protected String nome;
     protected String telefone;
     protected int ingresso;
@@ -27,9 +27,5 @@ public abstract class Visitante {
         } else {
             return true;
         }
-    }
-
-    public String getNome() {
-        return nome;
     }
 }

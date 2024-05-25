@@ -1,28 +1,29 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class herancaVisitante {
+public abstract class atributosVisitante {
     Scanner sc = new Scanner(System.in);
-    protected String tipo;
     protected String nome;
     protected int anoNascimento;
     protected String responsavel;
     protected int telefone;
     protected Integer ingresso = null;
+    protected static ArrayList<Visitante> visitantes = new ArrayList<>();
 
     interface Atividades {
         public void visitar();
         public Integer setIngresso();
     }
 
-    interface MenorDeIdadde {
+    interface MenorDeIdade {
+        public String getResponsavel();
         public void setResponsavel(String responsavel);
         public void setTelefoneResponsavel(int telefoneResponsavel);
     }
 
-    public class Adulto extends herancaVisitante implements Atividades {
+    public class Adulto extends atributosVisitante implements Atividades {
         // Sobre os visitantes adultos deseja-se armazenar nome, ano de nascimento e telefone.
         public Adulto(String nome, int telefone, int anoNascimento) {
-            this.tipo = "Adulto";
             this.nome = nome;
             this.anoNascimento = anoNascimento;
             this.telefone = telefone;
@@ -34,21 +35,20 @@ public abstract class herancaVisitante {
         }
 
         public Integer setIngresso() {
-            this.ingresso = new Ingresso.getNextIngresso();
+            this.ingresso = Ingresso.getNextIngresso();
             return ingresso;
         }
     }
 
     // Para crianças com menos de 12 anos, deve-se armazenar
     // o nome, o ano de nascimento, o nome do responsável e seu telefone de contato. 
-    public class Crianca extends herancaVisitante implements Atividades, MenorDeIdadde {
+    public class Crianca extends atributosVisitante implements Atividades, MenorDeIdadde {
         public Crianca(String nome, int telefone, int anoNascimento) {
-            this.tipo = "Crianca";
             this.nome = nome;
             this.anoNascimento = anoNascimento;
             this.responsavel = setResponsavel();
             this.telefone = telefone;
-}
+        }
 
         public void visitar() {
             System.out.println("Child " + nome + " is visiting.");
@@ -58,12 +58,19 @@ public abstract class herancaVisitante {
             this.ingresso = Ingresso.getNextIngresso();
             return ingresso;
         }
-        @Override
+
+        public String getResponsavel(String responsavel) {
+            // Ajustar para busca por nome
+            System.out.println("Responsável: " + responsavel);
+            return responsavel;
+        }
+
         public String setResponsavel() {
             System.out.println("Menores de 12 anos devem estar acompanhados de um responsável.");
             try {
+                
                 System.out.println("Insira o nome do responsável: ");
-                responsavel = sc.nextLine();
+                String responsavel = getResponsavel(sc.nextLine());
             } catch (Exception e) {
                 System.out.println("Erro: " + e + "\nCancelando registro.");
             }
@@ -74,6 +81,10 @@ public abstract class herancaVisitante {
             System.out.println("Telefone do Responsável: " + telefoneResponsavel);
         }
     }
+
+    /*
+     * GETTERS && SETTERS
+     */
 
     public String getNome() {
         return nome;

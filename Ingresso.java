@@ -9,13 +9,17 @@ public class Ingresso {
     private static int controleIngresso = 1;
     private int ingresso;
     private int valor;
-    private herancaVisitante visitante;
+    private atributosVisitante visitante;
     private final String identificador;
 
-    public Ingresso(herancaVisitante visitante, String data) {
+    enum validadeIngresso {
+        INVALIDO, VALIDO
+    }
+
+    public Ingresso(atributosVisitante visitante, String data) {
         this.visitante = visitante;
         this.ingresso = incrementaIngresso(); // Usa a funcao incrementaIngresso(), atribuind valor a ingresso
-        this.identificador = subMenu.getData() + "- Ingresso: " + String.format("%03d", ingresso);
+        this.identificador = subMenu.getData() + " - Ingresso: " + String.format("%03d", ingresso) + " - Valor: " + getValorIngresso(visitante.tipo);
         this.valor = valor;
     }
 
@@ -29,10 +33,11 @@ public class Ingresso {
         return false;
     }
 
-    public String getIngressoData() {
+    public String getIngressoData() {// Pega a data do ingresso
         return identificador.split("-")[0].trim();
     }
 
+    // ArrayList para controle de ingressos do dia
     public static ArrayList<Ingresso> ingressosDoDia = new ArrayList<>();
     public static ArrayList<Ingresso> getAllIngressos() {
         ArrayList<Ingresso> allIngressos = new ArrayList<>();
@@ -46,25 +51,23 @@ public class Ingresso {
         ingressosDoDia.add(ingresso);
     }
 
-    public static ArrayList<Ingresso> getIngressos() {
+    public static ArrayList<Ingresso> getIngressos() {// Pega os ingressos do dia
         return ingressosDoDia;
     }
 
-    private int incrementaIngresso() {
-        if (controleIngresso == 500) {
-            System.out.println("Limite de Ingressos diários atingido.");
-        } else {
-            if (visitante.tipo == "Adulto") {
-                ingresso = controleIngresso;
-                controleIngresso++;
-                vendasIngressoDia+= 100;
-            } else if (visitante.tipo == "Crianca") {
-                ingresso = controleIngresso;
-                controleIngresso++;
-                vendasIngressoDia+= 80;
-            } else {
-                System.out.println("Erro: Tipo de visitante não reconhecido.");
-            }
+
+
+    private Integer incrementaIngresso() { // AJUSTAR vendasIngressoDia
+        if (controleIngresso < 500 && visitante.tipo == "Adulto") {
+            ingresso = controleIngresso;
+            controleIngresso++;
+            vendasIngressoDia+= 100;
+        } else if (controleIngresso < 500 && visitante.tipo == "Crianca") {
+            ingresso = controleIngresso;
+            controleIngresso++;
+            vendasIngressoDia+= 80;
+        } else if (controleIngresso == 500){
+            System.out.println("Erro: Limite de Ingressos diários atingido.");
         }
         return ingresso; // Retorna o valor atualizado de ingresso
     }
@@ -81,10 +84,13 @@ public class Ingresso {
         }
     };
 
-    private static ArrayList<vendasIngressoDia> vendasIngressoDia = new ArrayList<>();
-    public static ArrayList<vendasIngressoDia> getVendasIngressoDia() {
+    private static ArrayList<RegistrosDia> vendasIngressoDia = new ArrayList<> () implements Registros;
+    public static ArrayList<RegistrosDia> getVendasIngressoDia() {
+
         return vendasIngressoDia;
     }
+
+    // return identificador.split("-")[-1].trim();
 
     public int getIngresso() {
         return ingresso;
@@ -106,6 +112,12 @@ public class Ingresso {
 
     public static int encerraDia(int controleIngresso) {
         return controleIngresso;
+    }
+
+    private int getIdentificador(Ingresso ingresso) {
+        String i = identificador.split("-")[-2].trim();
+        int identificador = Integer.parseInt(i);
+        return identificador;
     }
 
 }
