@@ -58,13 +58,13 @@ public class Ingresso {
         return vendasIngressoDia;
     }
 
-    private int getValorIngresso(atributosVisitante visitante) {
+    private int getValorIngresso(int anoDeNascimento) {
         try {
-            if (isVisitanteMenorDeIdade(visitante.anoDeNascimento) == false) {
+            if (isVisitanteMenorDeIdade(anoDeNascimento) == false) {
                 vendasIngressoDia.add(subMenu.getData(), this.ingresso, 100);
                 return 100;
-            } else if (isVisitanteMenorDeIdade(visitante.anoDeNascimento) == true) {
-                // Adicionar aqui, lógica com adição no Array de resultados [vendasIngressoDia]
+            } else if (isVisitanteMenorDeIdade(anoDeNascimento) == true) {
+                vendasIngressoDia.add(subMenu.getData(), this.ingresso, 80);
                 return 80;
             }
         } catch (Exception e) {
@@ -107,10 +107,6 @@ public class Ingresso {
 
 
 
-    // return identificador.split("-")[-1].trim();
-
-
-
 
 
 
@@ -126,7 +122,6 @@ public class Ingresso {
         } catch (Exception e) {
             System.out.println("Erro: " + e);
         }
-
         return ingresso;
     }
 
