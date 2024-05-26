@@ -25,7 +25,6 @@ public class Ingresso {
         this.valor = getIngressoValor(anoDeNascimento); // Por que eu adicionei isso?
     }
 
-
     private Integer incrementaIngresso(int controleIngresso) {
         if (controleIngresso < 500) {
             final int ingresso = controleIngresso;
@@ -97,21 +96,13 @@ public class Ingresso {
         return ingressosDoDia;
     }
 
-
-
-
-
-
-
-
-
     public int getIngresso() {// ajustar p/ necessidade
         return ingresso;
     }
 
     public Integer getNextIngresso() {
         try {
-            incrementaIngresso();
+            incrementaIngresso(controleIngresso);
         } catch (Exception e) {
             System.out.println("Erro: " + e);
         }
