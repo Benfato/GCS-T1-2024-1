@@ -20,24 +20,22 @@ public class Ingresso {
 
     public Ingresso(atributosVisitante visitante, String data, int anoDeNascimento) {
         this.visitante = visitante;
-        this.ingresso = incrementaIngresso(); // Usa a funcao incrementaIngresso(), atribuind valor a ingresso
-        this.identificador = subMenu.getData() + " - Ingresso: " + String.format("%03d", ingresso) + " - Valor: " + getValorIngresso(anoDeNascimento);
-        this.valor = getValorIngresso(anoDeNascimento); // Por que eu adicionei isso?
+        this.ingresso = incrementaIngresso(controleIngresso); // Usa a funcao incrementaIngresso(), atribuind valor a ingresso
+        this.identificador = subMenu.getData() + " - Ingresso: " + String.format("%03d", ingresso) + " - Valor: " + getIngressoValor(anoDeNascimento);
+        this.valor = getIngressoValor(anoDeNascimento); // Por que eu adicionei isso?
     }
 
 
-    private Integer incrementaIngresso() {
+    private Integer incrementaIngresso(int controleIngresso) {
         if (controleIngresso < 500) {
-            ingresso = controleIngresso;
+            final int ingresso = controleIngresso;
             controleIngresso++;
-        } else if (controleIngresso < 500) {
-            ingresso = controleIngresso;
-            controleIngresso++;
+            return ingresso;
         } else if (controleIngresso == 500){
             System.out.println("Erro: Limite de Ingressos diários atingido.");
         }
-        // Retorna o valor atualizado de ingresso
-        return ingresso; 
+        // Retorna null. Ajustar?
+        return null; 
     }
 
     public boolean isVisitanteMenorDeIdade(int anoDeNascimento) {
@@ -52,23 +50,18 @@ public class Ingresso {
         }
     }
 
-    private static ArrayList<RegistrosDia> vendasIngressoDia = new ArrayList<> ();
-    public static ArrayList<RegistrosDia> getVendasIngressoDia() {
-
-        return vendasIngressoDia;
-    }
-
-    private int getValorIngresso(int anoDeNascimento) {
+    private int getIngressoValor(int anoDeNascimento) {
         try {
             if (isVisitanteMenorDeIdade(anoDeNascimento) == false) {
-                vendasIngressoDia.add(subMenu.getData(), this.ingresso, 100);
+                // ArrayList com informações duplicadas. Corrigir p/ somente retono do valor, adicionado direto em ingressosDoDia.
                 return 100;
             } else if (isVisitanteMenorDeIdade(anoDeNascimento) == true) {
-                vendasIngressoDia.add(subMenu.getData(), this.ingresso, 80);
                 return 80;
             }
         } catch (Exception e) {
             System.out.println("Erro: " + e);
+            // Para evitar erros, retorna null. Necessita ser Integer.
+            return null;
         }
     };
 
@@ -112,7 +105,7 @@ public class Ingresso {
 
 
 
-    public int getIngresso() {
+    public int getIngresso() {// ajustar p/ necessidade
         return ingresso;
     }
 
@@ -129,14 +122,20 @@ public class Ingresso {
         return visitante.getNome();
     }
 
-    public static int encerraDia(int controleIngresso) {
-        return controleIngresso;
-    }
-
     private int getIdentificador(Ingresso ingresso) {
         String i = identificador.split("-")[-2].trim();
         int identificador = Integer.parseInt(i);
         return identificador;
     }
+
+    public final int encerraDia(int controleIngresso) {
+        // reseta ingressos
+        // reseta arrayControleIngresso
+        // reseta vendasIngressoDia
+        return controleIngresso;
+    }
+
+    // encerraMes
+    // encerraAno
 
 }
