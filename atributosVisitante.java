@@ -42,7 +42,7 @@ public abstract class atributosVisitante {
 
     // Para crianças com menos de 12 anos, deve-se armazenar
     // o nome, o ano de nascimento, o nome do responsável e seu telefone de contato. 
-    public class Crianca extends atributosVisitante implements Atividades, MenorDeIdadde {
+    public class Crianca extends atributosVisitante implements Atividades, MenorDeIdade {
         public Crianca(String nome, int telefone, int anoNascimento) {
             this.nome = nome;
             this.anoNascimento = anoNascimento;
@@ -51,7 +51,7 @@ public abstract class atributosVisitante {
         }
 
         public void visitar() {
-            System.out.println("Child " + nome + " is visiting.");
+            // Registra visita no parque
         }
 
         public Integer setIngresso() {
