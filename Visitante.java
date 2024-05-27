@@ -1,31 +1,19 @@
 import java.util.ArrayList;
 
-public class Visitante {
-    protected String nome;
-    protected String telefone;
-    protected int ingresso;
-    protected static ArrayList<Visitante> visitantes = new ArrayList<>();
+public class Visitante extends atributosVisitante {
+    // As variáveis de Visitante são protegidas para que possam ser acessadas por classes filhas
+    // Atributos de Visitante são extendidas de atributosVisitante
 
-    public Visitante(String nome, String telefone, int ingresso) {
+    //Alternativa melhor do que ArrayList, para novosVisitantes?
+    protected static ArrayList<Visitante> novoVisitante = new ArrayList<Visitante>();
+
+    public Visitante(String nome, int anoDeNascimento) {
         this.nome = nome;
-        this.telefone = telefone;
-        this.ingresso = ingresso;
+        this.anoDeNascimento = anoDeNascimento;
+        // this.telefone = telefone;
+        //this.ingresso = ingresso;
         
-        try { // Adiciona o visitante
-            if (adicionaVisitante()) {
-                visitantes.add(this);
-            }
-        } catch (Exception error) {
-            System.out.println("Erro ao adicionar visitante: " + error);
-        }
     }
 
-    public boolean adicionaVisitante() {
-        // Verifica se contém o visitante ("this") antes de adicionar
-        if (visitantes.contains(this)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+
 }
