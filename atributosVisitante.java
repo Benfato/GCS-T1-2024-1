@@ -4,11 +4,33 @@ import java.util.Scanner;
 public abstract class atributosVisitante {
     Scanner sc = new Scanner(System.in);
     protected String nome;
-    protected int anoNascimento;
+    protected int anoDeNascimento;
     protected String responsavel;
     protected int telefone;
     protected Integer ingresso = null;
-    protected static ArrayList<Visitante> visitantes = new ArrayList<>();
+    protected static ArrayList<Visitante> visitantes = new ArrayList<Visitante>();
+
+
+    public void adicionaNovoVisitante(Visitante novoVisitante) {
+        try {// Verifica se "visitantes" contém novoVisitante antes de adicionar
+            if (verificaExistencia(novoVisitante) == false && Ingresso.isVisitanteMenorDeIdade(novoVisitante.anoDeNascimento) == false) {
+                Adulto adulto = new Adulto(novoVisitante.nome, novoVisitante.anoDeNascimento, novoVisitante.telefone);
+                visitantes.add(adulto);
+            } else if (verificaExistencia(novoVisitante) == false && Ingresso.isVisitanteMenorDeIdade(novoVisitante.anoDeNascimento) == true) {
+                Crianca crianca = new Crianca(novoVisitante.nome, novoVisitante.telefone, novoVisitante.anoDeNascimento);
+                visitantes.add(crianca);
+            }
+        } catch (Exception error) {
+            System.out.println("Erro ao adicionar visitante: " + error);
+        }
+    }
+
+    public boolean verificaExistencia(Visitante novoVisitante) {
+        // Verifica se o visitante já foi adicionado
+        if (visitantes.contains(novoVisitante)) {
+            return true;
+        } else { return false; }
+    }
 
     interface Atividades {
         public void visitar();
@@ -16,25 +38,25 @@ public abstract class atributosVisitante {
     }
 
     interface MenorDeIdade {
-        public String getResponsavel();
-        public void setResponsavel(String responsavel);
-        public void setTelefoneResponsavel(int telefoneResponsavel);
+        public String getResponsavel(String responsavel);
+        public String setResponsavel();
+        public int setTelefoneResponsavel(String responsavel);
     }
 
-    public class Adulto extends atributosVisitante implements Atividades {
+    public class Adulto extends Visitante implements Atividades {
         // Sobre os visitantes adultos deseja-se armazenar nome, ano de nascimento e telefone.
-        public Adulto(String nome, int telefone, int anoNascimento) {
-            this.nome = nome;
-            this.anoNascimento = anoNascimento;
-            this.telefone = telefone;
+        public Adulto(String nome, int anoDeNascimento, int telefone) {
+            super(nome, anoDeNascimento);
             
         }
 
         public void visitar() {
+            // Ajustar para método de registro de visita (Atracoes.java || subMenu.java?)
             System.out.println(nome + " está visitando.");
         }
 
         public Integer setIngresso() {
+            // Ajustar (Implementar lista static de ingressos?)
             this.ingresso = Ingresso.getNextIngresso();
             return ingresso;
         }
@@ -42,12 +64,11 @@ public abstract class atributosVisitante {
 
     // Para crianças com menos de 12 anos, deve-se armazenar
     // o nome, o ano de nascimento, o nome do responsável e seu telefone de contato. 
-    public class Crianca extends atributosVisitante implements Atividades, MenorDeIdade {
-        public Crianca(String nome, int telefone, int anoNascimento) {
-            this.nome = nome;
-            this.anoNascimento = anoNascimento;
+    public class Crianca extends Visitante implements Atividades, MenorDeIdade {
+        public Crianca(String nome, int telefone, int anoDeNascimento) {
+            super(nome, anoDeNascimento);
             this.responsavel = setResponsavel();
-            this.telefone = telefone;
+            this.telefone = setTelefoneResponsavel(responsavel);
         }
 
         public void visitar() {
@@ -66,18 +87,22 @@ public abstract class atributosVisitante {
         }
 
         public String setResponsavel() {
+            //Ajustar
             System.out.println("Menores de 12 anos devem estar acompanhados de um responsável.");
             try {
                 
                 System.out.println("Insira o nome do responsável: ");
                 String responsavel = getResponsavel(sc.nextLine());
+                // Ajustar
+                
             } catch (Exception e) {
                 System.out.println("Erro: " + e + "\nCancelando registro.");
             }
             return responsavel;
         }
 
-        public void setTelefoneResponsavel(int telefoneResponsavel) {
+        public int setTelefoneResponsavel(String responsavel) {
+            // Ajustar
             System.out.println("Telefone do Responsável: " + telefoneResponsavel);
         }
     }
@@ -91,7 +116,7 @@ public abstract class atributosVisitante {
     }
 
     public int getIdade() {
-        return anoNascimento;
+        return anoDeNascimento;
     }
 
     public int getTelefone() {
@@ -107,10 +132,10 @@ public abstract class atributosVisitante {
     }
 
     public void setIdade(int idade) {
-        this.anoNascimento = idade;
+        this.anoDeNascimento = idade;
     }
 
     public void setTelefone(int telefone) {
         this.telefone = telefone;
-    }    
+    }
 }
