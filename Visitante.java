@@ -20,6 +20,11 @@ public class Visitante
     }
 
     //Getters.
+    public int getCpf()
+    {
+        return cpf;
+    }
+    
     public int getIdade()
     {
         return idade;
