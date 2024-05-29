@@ -24,7 +24,7 @@ public class Visitante
     {
         return cpf;
     }
-    
+
     public int getIdade()
     {
         return idade;
@@ -40,5 +40,16 @@ public class Visitante
         return nome;
     }
 
-    //Método para cadastro de visitantes.
+    //Método para consultar um visitante pelo cpf.
+    public Visitante consultaVisitante(int cpf)
+    {
+        for (Visitante v : visitantes)
+        {
+            if (v.getCpf() == cpf)
+            {
+                return v;
+            }
+        }
+        return null;
+    }
 }
