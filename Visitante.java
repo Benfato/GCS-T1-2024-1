@@ -1,3 +1,4 @@
+
 //Imports.
 import java.util.ArrayList;
 
@@ -51,5 +52,16 @@ public class Visitante
             }
         }
         return null;
+    }
+
+    //Método para cadastrar um novo visitante.
+    public boolean cadastraVisitante(Visitante visitante)
+    {
+        if (consultaVisitante(visitante.getCpf()) != null)
+        {
+            return false;
+        }
+        visitantes.add(visitante);
+        return true;
     }
 }
