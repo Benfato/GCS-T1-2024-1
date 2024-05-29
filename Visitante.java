@@ -1,16 +1,22 @@
-//Criação da classe Visitante
+//Imports.
+import java.util.ArrayList;
+
+//Criação da classe Visitante.
 public class Visitante
 {
     //Criação das variáveis.
-    private int idade, telefone;
+    private int cpf, idade, telefone;
     private String nome;
+    private ArrayList<Visitante> visitantes;
 
     //Construtor.
-    public Visitante(int idade, int telefone, String nome)
+    public Visitante(int cpf, int idade, int telefone, String nome)
     {
+        this.cpf = cpf;
         this.idade = idade;
         this.telefone = telefone;
         this.nome = nome;
+        visitantes = new ArrayList<>();
     }
 
     //Getters.
@@ -28,4 +34,6 @@ public class Visitante
     {
         return nome;
     }
+
+    //Método para cadastro de visitantes.
 }
