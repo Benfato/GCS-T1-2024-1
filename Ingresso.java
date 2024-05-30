@@ -30,4 +30,19 @@ public class Ingresso
         }
         return false;
     }
+
+    //Método para cadastrar um ingresso a um visitante
+    public boolean cadastraIngresso(Visitante v)
+    {
+        if (cont < 500)
+        {
+            if (!consultaIngresso(v))
+            {
+                ingressos.add(v);
+                cont++;
+                return true;
+            }
+        }
+        return false;
+    }
 }
