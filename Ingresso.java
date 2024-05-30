@@ -17,4 +17,17 @@ public class Ingresso
         ingressos = new ArrayList<>();
         dias = new ArrayList<>();
     }
+
+    //Método para consultar se um visitante possui um ingresso.
+    public boolean consultaIngresso(Visitante v1)
+    {
+        for (Visitante v2 : ingressos)
+        {
+            if (v1.getCpf() == v2.getCpf())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
