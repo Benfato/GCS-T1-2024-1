@@ -31,7 +31,7 @@ public class Ingresso
         return false;
     }
 
-    //Método para cadastrar um ingresso a um visitante
+    //Método para cadastrar um ingresso a um visitante.
     public boolean cadastraIngresso(Visitante v)
     {
         if (cont < 500)
@@ -44,5 +44,14 @@ public class Ingresso
             }
         }
         return false;
+    }
+
+    //Método para cadastrar um dia.
+    public void cadastraDia(ArrayList<Visitante> ingressos)
+    {
+        cont = 0;
+        dia ++;
+
+        dias.add(ingressos);
     }
 }
