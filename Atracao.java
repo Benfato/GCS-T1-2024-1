@@ -1,45 +1,37 @@
-import java.util.ArrayList;
-import java.util.List;
-
-//O parque de diversões precisa armazenar dados de suas atrações e de seus visitantes.
-//As atrações incluem, por exemplo;
-// montanha-russa, roda-gigante, barco viking, carro-choque, trem-fantasma etc
+import java.util.*;
+import java.util.Map;
 
 public abstract class Atracao {
-    protected String atracao;
-    protected List<Visita> visitas;
-    protected ArrayList<Atracao> atracoes;
-    private ArrayList<Visitante> visitantes;
+    protected String nomeAtracao;
+    protected Map<Visitante, Visita> visitas;
 
     public class Visita {
         private String dataVisita;
         private Atracao atracao;
-        private atributosVisitante visitante;
+        private Visitante visitante;
         private Ingresso ingresso;
 
-        public Visita(Ingresso ingresso, Atracao atracao, atributosVisitante visitante, String dataVisita) {
+        public Visita(Ingresso ingresso, Atracao atracao, Visitante visitante, String dataVisita) {
             this.dataVisita = dataVisita;
             this.atracao = atracao;
             this.visitante = visitante;
             this.ingresso = ingresso;
-            
         }
     }
 
-    public Atracao() {
-        atracoes = new ArrayList<>();
-        visitas = new ArrayList<>();
+    public Atracao(String nomeAtracao) {
+        this.nomeAtracao = nomeAtracao;
+        visitas = new HashMap<>();
     }
 
-
     interface Registros {
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso);
-        public boolean getDataVisita(Ingresso dataAtual); // Alterar para dia Global
+        boolean registraVisita(Visitante visitante, Ingresso ingresso);
+        boolean getDataVisita(Ingresso dataAtual); // Alterar para dia Global
     }
 
     private boolean isValido(Visitante visitante) {
-        for (Ingresso ingresso : Ingresso.ingressos) {
-            if (visitante.ingresso.getVisitante() == visitante && ingresso != null) {
+        for (Map.Entry<Visitante, Visita> entry : visitas.entrySet()) {
+            if (entry.getKey() == visitante && entry.getValue().ingresso != null) {
                 return true;
             }
         }
@@ -47,16 +39,15 @@ public abstract class Atracao {
     }
 
     public String getNomeAtracao() {
-        return atracao;
+        return nomeAtracao;
     }
 
-
-    /*
-    public boolean registraVisita(herancaVisitante visitante, Ingresso ingresso) {
-        if (ingresso != null && ingresso.getVisitante() == visitante.getNome()) {
+    public boolean registraVisita(Visitante visitante, Ingresso ingresso, String dataVisita) {
+        if (ingresso != null && ingresso.getVisitante() == visitante) {
+            visitas.put(visitante, new Visita(ingresso, this, visitante, dataVisita));
             return true;
         } else if (ingresso != null && ingresso.isValido()) {
-            this.visitante.add(visitante);
+            visitas.put(visitante, new Visita(ingresso, this, visitante, dataVisita));
             ingresso.registraVisita(this);
             return true;
         } else {
@@ -64,5 +55,4 @@ public abstract class Atracao {
             return false;
         }
     }
-    */
 }
