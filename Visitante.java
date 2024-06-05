@@ -22,6 +22,9 @@ public abstract class Visitante {
         
     }
 
+    /*
+     * Armazenamento dos dados (nome, ano de nascimento e telefone) dos visitantes cadastrados no sistema 
+     */
     public class Adulto extends Visitante implements Atividades {
         // Sobre os visitantes adultos deseja-se armazenar nome, ano de nascimento e telefone.
         public Adulto(String nome, int telefone, int anoNascimento) {
@@ -41,8 +44,9 @@ public abstract class Visitante {
         }
     }
 
-    // Para crianças com menos de 12 anos, deve-se armazenar
-    // o nome, o ano de nascimento, o nome do responsável e seu telefone de contato. 
+    /*
+     * Armazenamento dos dados (nome, ano de nascimento, nome do responsável e telefone de contato) de crianças menores de 12 anos.
+     */
     public class Crianca extends Visitante implements Atividades, MenorDeIdade {
         public Crianca(String nome, int telefone, int anoNascimento) {
             this.nome = nome;
@@ -61,7 +65,7 @@ public abstract class Visitante {
         }
 
         public String getResponsavel(String responsavel) {
-            // Ajustar para busca por nome
+            //TODO: Ajustar para busca por nome
             System.out.println("Responsável: " + responsavel);
             return responsavel;
         }
