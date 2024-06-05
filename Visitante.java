@@ -57,4 +57,36 @@ public class Visitante
         visitantes.add(visitante);
         return true;
     }
+
+    /*
+     * Listagem de todos os visitantes já cadastrados no sistema
+     */
+    private String formatarVisitante(Visitante visitante) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome: ").append(visitante.getNome()).append("\n");
+        sb.append("Ano de Nascimento: ").append(visitante.getIdade()).append("\n");
+    
+        if (visitante instanceof Crianca) {
+            Crianca crianca = (Crianca) visitante;
+            sb.append("Responsável: ").append(crianca.getResponsavel()).append("\n");
+            sb.append("Telefone do Responsável: ").append(crianca.getTelefone()).append("\n");
+        } else {
+            sb.append("Telefone: ").append(visitante.getTelefone()).append("\n");
+        }
+    
+        sb.append("Ingresso: ").append(visitante.getIngresso()).append("\n");
+        sb.append("-------------------------\n");
+        return sb.toString();
+    }
+
+    public void listarVisitantes() {
+        if (visitantes.isEmpty()) {
+            System.out.println("Nenhum visitante cadastrado.");
+        } else {
+            System.out.println("Lista de visitantes cadastrados:");
+            for (Visitante visitante : visitantes) {
+                System.out.print(formatarVisitante(visitante));
+            }
+        }
+    }
 }
