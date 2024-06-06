@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-class Atracao {
+public class Atracao {
     private String nome;
     private ArrayList<Visitante> visitante;
 
