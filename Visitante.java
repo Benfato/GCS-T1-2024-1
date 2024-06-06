@@ -114,5 +114,15 @@ public abstract class Visitante {
 
     public void setTelefone(int telefone) {
         this.telefone = telefone;
-    }    
+    }
+      
+    public static ArrayList<Visitante> buscarVisitantesPorNome(String nome){
+        ArrayList<Visitante> resultados = new ArrayList<>();
+        for(Visitante v : visitantes){
+            if(v.getNome().toLowerCase().contains(nome.toLowerCase())){
+                resultados.add(v);
+            }
+        }
+        return resultados;
+    }
 }
