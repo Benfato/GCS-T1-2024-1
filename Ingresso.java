@@ -1,57 +1,20 @@
-//Imports.
-import java.util.ArrayList;
+import java.time.LocalDate;
 
-//Criação da classe Ingresso.
-public class Ingresso
-{
-    //Criação das variáveis.
-    private int cont, dia;
-    private ArrayList<Visitante> ingressos;
-    private ArrayList<ArrayList> dias;
+public class Ingresso {
+    ControleIngresso controladorIngresso = new ControleIngresso();
+    private int contadorIngressos = 0;
 
-    //Construtor.
-    public Ingresso()
-    {
-        this.cont = cont;
-        this.dia = dia;
-        ingressos = new ArrayList<>();
-        dias = new ArrayList<>();
-    }
-
-    //Método para consultar se um visitante possui um ingresso.
-    public boolean consultaIngresso(Visitante v1)
-    {
-        for (Visitante v2 : ingressos)
-        {
-            if (v1.getCpf() == v2.getCpf())
-            {
-                return true;
-            }
+    public Ingresso(Visitante visitante) {
+        if (contadorIngressos < 500) {
+            int ingresso = this.contadorIngressos;
+            LocalDate data = LocalDate.now();
+            controladorIngresso.addVisitante(contadorIngressos, visitante);
+            this.contadorIngressos++;
+            System.out.println("Ingresso cadastrado com sucesso!");
+        } else {
+            controladorIngresso.encerraDia();
+            contadorIngressos = 0;
+            System.out.println("Limite de ingressos atingido, encerrando o dia.");
         }
-        return false;
-    }
-
-    //Método para cadastrar um ingresso a um visitante.
-    public boolean cadastraIngresso(Visitante v)
-    {
-        if (cont < 500)
-        {
-            if (!consultaIngresso(v))
-            {
-                ingressos.add(v);
-                cont++;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    //Método para cadastrar um dia.
-    public void cadastraDia(ArrayList<Visitante> ingressos)
-    {
-        cont = 0;
-        dia ++;
-
-        dias.add(ingressos);
     }
 }
