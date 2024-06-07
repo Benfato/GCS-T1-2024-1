@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 
 public class Ingresso {
-    ControleIngresso controladorIngresso = new ControleIngresso();
     private Visitante visitante;
     private int contadorIngressos = 0;
     private int ingresso;
@@ -13,12 +12,12 @@ public class Ingresso {
             this.ingresso = contadorIngressos;
             this.data = LocalDate.now();
 
-            controladorIngresso.addVisitante(contadorIngressos, visitante);
+            ControleIngresso.addVisitante(contadorIngressos, visitante);
             this.contadorIngressos++;
 
             System.out.println("Ingresso cadastrado com sucesso!");
         } else {
-            controladorIngresso.encerraDia();
+            ControleIngresso.encerraDia();
             contadorIngressos = 0;
             System.out.println("Limite de ingressos atingido, encerrando o dia.");
         }
