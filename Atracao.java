@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.List;
+
+
 public class Atracao {
     String nome;
     
@@ -9,4 +10,9 @@ public class Atracao {
         VisitanteDaAtracao v = new VisitanteDaAtracao(visitante, data);
         this.visitantes.add(v);
     }
+
+    public String getNome() {
+        return nome;
+    }
+
 }
