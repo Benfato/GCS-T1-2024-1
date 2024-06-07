@@ -104,11 +104,8 @@ public class Park {
         controleIngresso.getFaturamentoPeriodo();
     }
 
-    //Falta Confirmar se ta certo
     public void consultarAtracoes() {
-        for(Atracao atracao: atracoes.atracoes){
-            System.out.println("Nome: "+ atracao.getNome());
-        }
+        atracoes.exibirAtracoes();
     }
 
     public void consultarAtracoesPorDia() {

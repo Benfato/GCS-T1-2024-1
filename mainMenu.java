@@ -7,8 +7,6 @@ public class mainMenu {
     
     public static void main(String[] args) {
 
-        
-
         Atracoes atracoes = new Atracoes();
         atracoes.cadastrarAtracao("Montanha Russa");
         atracoes.cadastrarAtracao("Roda Gigante");
@@ -64,11 +62,11 @@ public class mainMenu {
                     break;
                 case 5:
                     //todo método consultar atrações
-                    atracoes.exibirAtracoes();
+                    park.consultarAtracoes();
                     break;
                 case 6:
                     //todo método de consultar atrações por dia
-                    atracoes.consultarAtracoesPorDia();
+                    park.consultarAtracoesPorDia();
                     break;
                 case 7:
                     //todo método para listar visitantes
