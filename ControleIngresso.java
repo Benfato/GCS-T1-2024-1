@@ -59,9 +59,9 @@ public class ControleIngresso {
             if (historico.containsKey(data)) {
                 Collection<Visitante> lista = this.historico.get(data).values();
                 for (Visitante v : lista) {
-                    if (v.getTipoIngresso() == TipoIngresso.INTEIRO) {
+                    if (v.getIdade() > 12) {
                         faturamento += 100;
-                    } else if (v.getTipoIngresso() == TipoIngresso.INFANTIL) {
+                    } else {
                         faturamento += 80;
                     }
                 }
