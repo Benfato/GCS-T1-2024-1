@@ -35,8 +35,9 @@ public class mainMenu {
         System.out.println("3 - Localizar visitante");
         System.out.println("4 - Consultar faturamento");
         System.out.println("5 - Consultar atrações");
-        System.out.println("6 - Encerrar dia");
-        System.out.println("7 - Encerrar sistema");
+        System.out.println("6 - Consultar atrações por dia");
+        System.out.println("7 - Encerrar dia");
+        System.out.println("8 - Encerrar sistema");
 
         int selecao = sc.nextInt();
         switch (selecao){
@@ -52,8 +53,11 @@ public class mainMenu {
                 //todo método consultar atrações
                 atracoes.exibirAtracoes();
             case 6:
-                //todo método encerrar dia
+                //todo método de consultar atrações por dia
+                atracoes.consultarAtracoesPorDia();
             case 7:
+                //todo método encerrar dia
+            case 8:
                 sc.close();
                 System.exit(0);
         }
