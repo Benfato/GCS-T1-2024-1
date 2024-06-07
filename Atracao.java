@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 public class Atracao {
     String nome;
     
-    private ArrayList<Visitante> visitante;
+    public ArrayList<VisitanteDaAtracao> visitantes;
 
-    public void adicionarVisitante(Visitante visitante){
-        this.visitante.add(visitante);
+    public void adicionarVisitante(Visitante visitante, String data){
+        VisitanteDaAtracao v = new VisitanteDaAtracao(visitante, data);
+        this.visitantes.add(v);
     }
 }

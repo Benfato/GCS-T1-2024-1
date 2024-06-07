@@ -1,6 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class mainMenu {
+
+    public ArrayList<Atracao> atracoes = new ArrayList<>();
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("\t====== PARK TUPÃ - A 49 anos levando a diversão até você ======");
@@ -11,7 +15,6 @@ public class mainMenu {
         System.out.println("4 - Consultar faturamento");
         System.out.println("5 - Consultar atrações");
         System.out.println("6 - Encerrar sistema");
-
         int selecao = sc.nextInt();
         switch (selecao){
             case 1:
@@ -24,6 +27,7 @@ public class mainMenu {
                 //todo método consultar faturamento
             case 5:
                 //todo método consultar atrações
+                ConsultarAtracoesPorDia.main();
             case 6:
                 sc.close();
                 System.exit(0);
