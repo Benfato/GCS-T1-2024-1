@@ -1,7 +1,10 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class ControleIngresso {
     private static HashMap<Integer, Visitante> listaVizitantes;
@@ -51,24 +54,44 @@ public class ControleIngresso {
         return false;
     }
 
-    // falta a criação do método que retorne o tipo ou o valor do ingresso para
-    // verificação.
-    public static int getFaturamentoPeriodo(LocalDate inicio, LocalDate fim) {
-        int faturamento = 0;
-        for (LocalDate data = inicio; data.isBefore(fim); data = data.plusDays(1)) {
-            if (historico.containsKey(data)) {
-                Collection<Visitante> lista = historico.get(data).values();
-                for (Visitante v : lista) {
-                    if (v.getIdade() > 12) {
-                        faturamento += 100;
-                    } else {
-                        faturamento += 80;
+    public static int getFaturamentoPeriodo() {
+        try {
+            Scanner scan = new Scanner(System.in);
+            DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
+                    .append(DateTimeFormatter.ofPattern("dd-MMM-yyyy")).toFormatter();
+
+            System.out.println();
+            System.out.println("Digite o inicio do período (dd/MMM/yyy): ");
+            String dataString = scan.nextLine();
+            LocalDate inicio = LocalDate.parse(dataString, f);
+
+            System.out.println();
+            System.out.println("Digite o inicio do período (dd/MMM/yyy): ");
+            dataString = scan.nextLine();
+            LocalDate fim = LocalDate.parse(dataString, f);
+
+            scan.close();
+
+            int faturamento = 0;
+            for (LocalDate data = inicio; data.isBefore(fim); data = data.plusDays(1)) {
+                if (historico.containsKey(data)) {
+                    Collection<Visitante> lista = historico.get(data).values();
+                    for (Visitante v : lista) {
+                        if (v.getIdade() > 12) {
+                            faturamento += 100;
+                        } else {
+                            faturamento += 80;
+                        }
                     }
                 }
-            }
 
+            }
+            return faturamento;
+        } catch (Exception e) {
+            System.out.println("Erro");
+            return -1;
         }
-        return faturamento;
+
     }
 
     public static void encerraDia() {
