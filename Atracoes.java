@@ -38,7 +38,7 @@ public class Atracoes {
         String dataString = scan.nextLine();
 
         DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
-        .append(DateTimeFormatter.ofPattern("yyyy-MMM-dd")).toFormatter();
+        .append(DateTimeFormatter.ofPattern("dd-MMM-yyyy")).toFormatter();
         try {
             LocalDate data = LocalDate.parse(dataString, f);
             
