@@ -7,6 +7,7 @@ public class mainMenu {
     
     public static void main(String[] args) {
 
+        
 
         Atracoes atracoes = new Atracoes();
         atracoes.cadastrarAtracao("Montanha Russa");
@@ -25,41 +26,66 @@ public class mainMenu {
         atracoes.cadastrarAtracao("Parede de Escalada");
         atracoes.cadastrarAtracao("Pista de Kart");
 
+        Park park = new Park(atracoes);
 
+        int selecao = 0;
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\t====== PARK TUPÃ - A 49 anos levando a diversão até você ======");
-        System.out.println("\t\t====== Sistema de gerenciamento de visitantes ======");
-        System.out.println("1 - Cadastrar novo visitante");
-        System.out.println("2 - Registrar vista a atração");
-        System.out.println("3 - Localizar visitante");
-        System.out.println("4 - Consultar faturamento");
-        System.out.println("5 - Consultar atrações");
-        System.out.println("6 - Consultar atrações por dia");
-        System.out.println("7 - Encerrar dia");
-        System.out.println("8 - Encerrar sistema");
+        while (selecao != 8) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("\t====== PARK TUPÃ - A 49 anos levando a diversão até você ======");
+            System.out.println("\t\t====== Sistema de gerenciamento de visitantes ======");
+            System.out.println("1 - Cadastrar novo visitante");
+            System.out.println("2 - Registrar vista a atração");
+            System.out.println("3 - Localizar visitante");
+            System.out.println("4 - Consultar faturamento");
+            System.out.println("5 - Consultar atrações");
+            System.out.println("6 - Consultar atrações por dia");
+            System.out.println("7 - Listar visitantes");
+            System.out.println("8 - Encerrar dia");
+            System.out.println("9 - Encerrar sistema");
 
-        int selecao = sc.nextInt();
-        switch (selecao){
-            case 1:
-                //todo método cadastra visitante
-            case 2:
-                //todo método registrar vista a atração
-            case 3:
-                //todo método localizar visitante
-            case 4:
-                //todo método consultar faturamento
-            case 5:
-                //todo método consultar atrações
-                atracoes.exibirAtracoes();
-            case 6:
-                //todo método de consultar atrações por dia
-                atracoes.consultarAtracoesPorDia();
-            case 7:
-                //todo método encerrar dia
-            case 8:
-                sc.close();
-                System.exit(0);
+            selecao = sc.nextInt();
+            switch (selecao){
+                case 1:
+                    //todo método cadastra visitante
+                    park.cadastrarNovoVisitante();
+                    break;
+                case 2:
+                    //todo método registrar vista a atração
+                    park.registrarVisitaAAtracao();
+                    break;
+                case 3:
+                    //todo método localizar visitante
+                    park.localizarVisitante();
+                    break;
+                case 4:
+                    //todo método consultar faturamento
+                    park.consultarFaturamento();
+                    break;
+                case 5:
+                    //todo método consultar atrações
+                    atracoes.exibirAtracoes();
+                    break;
+                case 6:
+                    //todo método de consultar atrações por dia
+                    atracoes.consultarAtracoesPorDia();
+                    break;
+                case 7:
+                    //todo método para listar visitantes
+                    park.listarVisitantes();
+                    break;
+                case 8:
+                    //todo método encerrar dia
+                    park.encerrarDia();
+                    break;
+                case 9:
+                    System.out.println("Fim.");
+                    sc.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Digite uma opção válida.");
+            }
         }
     }
 }

@@ -7,30 +7,43 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class ControleIngresso {
-    private static HashMap<Integer, Visitante> listaVizitantes;
-    private static HashMap<LocalDate, HashMap<Integer, Visitante>> historico;
+    private int countIngresso = 0;
+    private HashMap<Ingresso, Visitante> listaVizitantes;
+    private HashMap<LocalDate, HashMap<Ingresso, Visitante>> historico;
 
-    public static void addVisitante(int ingresso, Visitante visitante) {
-        listaVizitantes.put(ingresso, visitante);
+    public ControleIngresso() {
+        this.listaVizitantes = new HashMap<Ingresso, Visitante>();
+        this.historico = new HashMap<LocalDate, HashMap<Ingresso, Visitante>>();
     }
 
-    public static ArrayList<Visitante> getVisitantes() {
+    public void addVisitante(Visitante visitante, LocalDate data) {
+        if (this.countIngresso < 500) {
+            this.listaVizitantes.put(new Ingresso(countIngresso, data), visitante);
+            
+            countIngresso++;
+            System.out.println("Ingresso cadastrado com sucesso!");
+        } else {
+            System.out.println("Limite de ingressos atingido.");
+        }
+    }
+
+    public ArrayList<Visitante> getVisitantes() {
         return new ArrayList<>(listaVizitantes.values());
     }
 
-    public static int getNextIngresso() {
+    public int getNextIngresso() {
         return listaVizitantes.size() + 1;
     }
 
-    public static Visitante getVisitanteByIngresso(int ingresso) {
+    public Visitante getVisitanteByIngresso(int ingresso) {
         return listaVizitantes.get(ingresso);
     }
 
-    public static int getQuantidadeIngressos() {
+    public int getQuantidadeIngressos() {
         return listaVizitantes.size();
     }
 
-    public static int getIngressoByVisitante(Visitante visitante) {
+    public int getIngressoByVisitante(Visitante visitante) {
         Collection<Visitante> lista = listaVizitantes.values();
         for (int i = 0; i < lista.size(); i++) {
             if (visitante.equals(lista.toArray()[i])) {
@@ -40,11 +53,11 @@ public class ControleIngresso {
         return -1;
     }
 
-    public static ArrayList<Visitante> getVisitantesByData(LocalDate data) {
+    public ArrayList<Visitante> getVisitantesByData(LocalDate data) {
         return new ArrayList<>(historico.get(data).values());
     }
 
-    public static boolean consultaIngresso(Visitante visitante) {
+    public boolean consultaIngresso(Visitante visitante) {
         Collection<Visitante> lista = listaVizitantes.values();
         for (Visitante v2 : lista) {
             if (visitante.getCpf() == v2.getCpf()) {
@@ -54,7 +67,7 @@ public class ControleIngresso {
         return false;
     }
 
-    public static int getFaturamentoPeriodo() {
+    public int getFaturamentoPeriodo() {
         try {
             Scanner scan = new Scanner(System.in);
             DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
@@ -94,7 +107,8 @@ public class ControleIngresso {
 
     }
 
-    public static void encerraDia() {
+    public void encerraDia() {
+        countIngresso = 0;
         historico.put(LocalDate.now(), listaVizitantes);
         listaVizitantes.clear();
     }

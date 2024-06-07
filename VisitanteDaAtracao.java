@@ -4,8 +4,8 @@ import java.util.List;
 
 public class VisitanteDaAtracao {
 
-    Visitante visitante;
-    LocalDate data;
+    public Visitante visitante;
+    public LocalDate data;
 
     public VisitanteDaAtracao(Visitante visitante, LocalDate data){
         this.visitante = visitante;

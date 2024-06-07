@@ -3,6 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Atracoes {
@@ -13,7 +14,7 @@ public class Atracoes {
     }
 
     public void cadastrarAtracao(String nome) {
-        atracoes.add(new Atracao(nome));
+        atracoes.add(new Atracao(nome, 50));
     }
 
     public void exibirAtracoes() {
@@ -21,6 +22,12 @@ public class Atracoes {
         for (Atracao atracao : atracoes) {
             System.out.println("- " + atracao.getNome());
             
+        }
+    }
+
+    public void encerarDia() {
+        for(Atracao atracao: atracoes){
+            atracao.encerrarDia();
         }
     }
 
@@ -39,18 +46,18 @@ public class Atracoes {
 
         DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
         .append(DateTimeFormatter.ofPattern("dd-MMM-yyyy")).toFormatter();
+
         try {
             LocalDate data = LocalDate.parse(dataString, f);
             
             for(Atracao atracao : atracoes){
-                int contadorAux = 0;
+                int contadorAux = 0;    //Contado de quantas pessoas foram na atração
                 for(VisitanteDaAtracao visitante: atracao.visitantes){
                     if(visitante.data == data) {
                         contadorAux++;
                     }
-                    
                 }
-                System.out.println(atracao.nome + "" + contadorAux);
+                System.out.println(atracao.getNome() + "" + contadorAux);
                 contadorAux = 0;
             }
 
