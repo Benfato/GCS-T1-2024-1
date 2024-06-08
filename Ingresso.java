@@ -1,3 +1,4 @@
+
 import java.time.LocalDate;
 
 public class Ingresso {
@@ -16,5 +17,4 @@ public class Ingresso {
     public LocalDate getData() {
         return data;
     }
-    
 }
