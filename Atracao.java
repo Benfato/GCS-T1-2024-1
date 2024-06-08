@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Atracao {
     private String nome;
     private int capacidadeMaxima;
-    private ArrayList<Visitante> visitantes;
+    public ArrayList<VisitanteDaAtracao> visitantes;
 
     public Atracao(String nome, int capacidadeMaxima) {
         this.nome = nome;
@@ -11,9 +12,9 @@ public class Atracao {
         this.visitantes = new ArrayList<>();
     }
 
-    public void adicionarVisitante(Visitante visitante) {
+    public void adicionarVisitante(Visitante visitante, LocalDate data) {
         if (this.visitantes.size() < this.capacidadeMaxima) {
-            this.visitantes.add(visitante);
+            this.visitantes.add(new VisitanteDaAtracao(visitante, data));
         } else {
             System.out.println("Desculpe, a capacidade máxima desta atração foi alcançada. Não é possível adicionar mais visitantes.");
         }
@@ -36,11 +37,16 @@ public class Atracao {
         this.capacidadeMaxima = capacidadeMaxima;
     }
 
-    public ArrayList<Visitante> getVisitantes() {
+    public ArrayList<VisitanteDaAtracao> getVisitantes() {
         return visitantes;
     }
 
-    public void setVisitantes(ArrayList<Visitante> visitantes) {
+    public void setVisitantes(ArrayList<VisitanteDaAtracao> visitantes) {
         this.visitantes = visitantes;
+    }
+
+    public void encerrarDia() {
+        this.visitantes = new ArrayList<>();
+        this.capacidadeMaxima = 0;
     }
 }
